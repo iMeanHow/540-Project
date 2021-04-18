@@ -22,11 +22,12 @@ public class WolfStore {
     public static void helper(){
         System.out.println("1: Staff Management");
         System.out.println("2: Store Management");
+        System.out.print("\nChoose Domain: ");
     }
 
 
     public static void main(String[] args) {
-        System.out.println("===Welcome to WolfStore System===");
+        System.out.println("===Welcome to WolfStore System===\n");
         try {
             connectToDatabase();
         } catch (ClassNotFoundException e) {
@@ -34,11 +35,11 @@ public class WolfStore {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        helper();
+
         Scanner scanner = new Scanner(System.in);
         while(true){
+            helper();
             String in =scanner.next();
-
             if(in.equals("1")){
                 System.out.println("=====Staff Management=====");
                 staffManagement=new StaffManagement(connection,statement,result,scanner);
@@ -50,7 +51,7 @@ public class WolfStore {
             }
 
 
-            else if(in.equals("exist")){
+            else if(in.equals("exit")){
                 System.out.println("Thank you for using WolfStore System!");
                 return;
             }
