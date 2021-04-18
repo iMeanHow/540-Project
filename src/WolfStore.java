@@ -5,7 +5,7 @@ public class WolfStore {
 
     static final String jdbcURL = "jdbc:mysql://localhost:3306/wolfwr";
     static final String user = "root";
-    static final String password = "expertiza";
+    static final String password = "345678";
 
     private static Connection connection = null;
     private static Statement statement = null;
