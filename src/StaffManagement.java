@@ -22,10 +22,11 @@ public class StaffManagement {
     }
 
     public void findStaff(){
-        String sql = "select * from staff where 1=1";
+        System.out.println("-----find staff by condition-----");
         System.out.println("--press enter to skip the input--");
+        String sql = "select * from staff where 1=1";
         System.out.print("staffId: ");
-        String x=scanner.nextLine();
+        String unuse=scanner.nextLine();
         String id=scanner.nextLine();
         if(!StringUtils.isNullOrEmpty(id)){
             sql+=(" and StaffID="+id);
@@ -68,13 +69,33 @@ public class StaffManagement {
             }
             System.out.println("Total rows: "+cnt);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
     public void createStaff(){
+        System.out.println("--------create new staff---------");
+        System.out.println("-----no null value permitted-----");
+        String sql = "Insert into staff (Name,Age,Address,Phone,EmploymentTime) values (";
+        System.out.print("name: ");
+        sql += ("'"+scanner.next()+"'"+",");
+        System.out.print("age: ");
+        sql += scanner.next()+",";
+        System.out.print("address: ");
+        sql += ("'"+scanner.next()+"'"+",");
+        System.out.print("phone: ");
+        sql += ("'"+scanner.next()+"'"+",");
+        sql += "now() )";
 
+        try {
+            //System.out.println(sql);
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 
     public void execute(){
         while(true) {
@@ -87,6 +108,7 @@ public class StaffManagement {
                 findStaff();
             } else if (in.equals("1")) {
                 System.out.println("--new staff--");
+                createStaff();
             } else if (in.equals("2")) {
                 System.out.println("--associate staff with manager role--");
             }
