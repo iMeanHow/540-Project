@@ -35,7 +35,7 @@ public class StaffManagement {
             System.out.print("name: ");
             String name=scanner.nextLine();
             if(!StringUtils.isNullOrEmpty(name)){
-                sql+=(" and Name='"+name+"'");
+                sql+=(" and Name like'%"+name+"%'");
             }
             System.out.print("age: ");
             String age=scanner.nextLine();
@@ -45,7 +45,7 @@ public class StaffManagement {
             System.out.print("address: ");
             String address=scanner.nextLine();
             if(!StringUtils.isNullOrEmpty(address)){
-                sql+=(" and Address='"+address+"'");
+                sql+=(" and Address like'%"+address+"%'");
             }
             System.out.print("phone: ");
             String phone=scanner.nextLine();
@@ -105,6 +105,7 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "Insert into AssistantManager Values ("+id+")";
         try{
@@ -124,6 +125,7 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "Insert into BillingStaff Values ("+id+")";
         try{
@@ -143,6 +145,7 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "Insert into Cashier Values ("+id+")";
         try{
@@ -162,6 +165,7 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "Insert into WarehouseChecker Values ("+id+")";
         try{
@@ -181,13 +185,14 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "DELETE from AssistantManager where StaffID = ("+id+")";
         try{
             int res = statement.executeUpdate(sql);
             System.out.println("Success");
         } catch (SQLException e) {
-            System.out.println("Staff Not Exist");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -200,13 +205,14 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "DELETE from BillingStaff where StaffID = ("+id+")";
         try{
             int res = statement.executeUpdate(sql);
             System.out.println("Success");
         } catch (SQLException e) {
-            System.out.println("Staff Not Exist");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -219,13 +225,14 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "DELETE from Cashier where StaffID = ("+id+")";
         try{
             int res = statement.executeUpdate(sql);
             System.out.println("Success");
         } catch (SQLException e) {
-            System.out.println("Staff Not Exist");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -238,13 +245,14 @@ public class StaffManagement {
             staffid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
+            return;
         }
         String sql = "DELETE from WarehouseChecker where StaffID = ("+id+")";
         try{
             int res = statement.executeUpdate(sql);
             System.out.println("Success");
         } catch (SQLException e) {
-            System.out.println("Staff Not Exist");
+            System.out.println(e.getMessage());
         }
     }
 

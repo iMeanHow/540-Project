@@ -18,10 +18,22 @@ public class WolfStore {
     }
     private static BillManagement billManagement;
     private static StaffManagement staffManagement;
+    private static StoreManagement storeManagement;
+    private static MemberManagement memberManagement;
+    private static MerchandiseManagement merchandiseManagement;
+    private static SupplierManagement supplierManagement;
+    private static ReportGenerator reportGenerator;
+    private static TransactionManagement transactionManagement;
 
     public static void helper(){
         System.out.println("1: Staff Management");
         System.out.println("2: Store Management");
+        System.out.println("3: Supplier Management");
+        System.out.println("4: Club Member Management");
+        System.out.println("5: Merchandise Management");
+        System.out.println("6: Billing Management");
+        System.out.println("7: Transaction Management");
+        System.out.println("8: Report Generator");
         System.out.print("\nChoose Domain: ");
     }
 
@@ -47,7 +59,8 @@ public class WolfStore {
             }
             else if(in.equals("2")){
                 System.out.println("=====Store Management=====");
-
+                storeManagement=new StoreManagement(connection,statement,result,scanner);
+                storeManagement.execute();
             }
 
 
