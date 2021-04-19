@@ -62,7 +62,36 @@ public class WolfStore {
                 storeManagement=new StoreManagement(connection,statement,result,scanner);
                 storeManagement.execute();
             }
-
+            else if(in.equals("3")){
+                System.out.println("=====Supplier Management=====");
+                supplierManagement=new SupplierManagement(connection,statement,result,scanner);
+                supplierManagement.execute();
+            }
+            else if(in.equals("4")){
+                System.out.println("=====Club Member Management=====");
+                memberManagement=new MemberManagement(connection,statement,result,scanner);
+                memberManagement.execute();
+            }
+            else if(in.equals("5")){
+                System.out.println("=====Merchandise Management=====");
+                merchandiseManagement=new MerchandiseManagement(connection,statement,result,scanner);
+                merchandiseManagement.execute();
+            }
+            else if(in.equals("6")){
+                System.out.println("=====Billing Management=====");
+                billManagement=new BillManagement(connection,statement,result,scanner);
+                billManagement.execute();
+            }
+            else if(in.equals("7")){
+                System.out.println("=====Transaction Management=====");
+                transactionManagement=new TransactionManagement(connection,statement,result,scanner);
+                transactionManagement.execute();
+            }
+            else if(in.equals("8")){
+                System.out.println("=====Report Management=====");
+                reportGenerator=new ReportGenerator(connection,statement,result,scanner);
+                reportGenerator.execute();
+            }
 
             else if(in.equals("exit")){
                 System.out.println("Thank you for using WolfStore System!");

@@ -24,7 +24,7 @@ public class StaffManagement {
     public void findStaff(){
         System.out.println("-----find staff by condition-----");
         System.out.println("--press enter to skip the input--");
-        String sql = "select * from staff where 1=1";
+        String sql = "select * from staff where 1=1 ";
         System.out.print("staffId: ");
         String unuse=scanner.nextLine();
         String id=scanner.nextLine();
