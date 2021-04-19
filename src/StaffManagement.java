@@ -96,10 +96,232 @@ public class StaffManagement {
         }
     }
 
+    public void associateManager(){
+        System.out.println("--------associate manager---------");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "Insert into AssistantManager Values ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void billingStaff(){
+        System.out.println("---associate billing staff---");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "Insert into BillingStaff Values ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void cashier(){
+        System.out.println("--------associate cashier---------");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "Insert into Cashier Values ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void warehouseChecker(){
+        System.out.println("--associate warehouse checker--");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "Insert into WarehouseChecker Values ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void deleteAssistantManager(){
+        System.out.println("-----delete manager-----");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "DELETE from AssistantManager where StaffID = ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void deleteBillingStaff(){
+        System.out.println("--delete billing staff--");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "DELETE from BillingStaff where StaffID = ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void deleteCashier(){
+        System.out.println("--delete cashier--");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "DELETE from Cashier where StaffID = ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void deleteWarehouseChecker(){
+        System.out.println("--delete warehouse checker--");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "DELETE from WarehouseChecker where StaffID = ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void deleteStaff(){
+        System.out.println("--delete staff (not recommended)--");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql = "DELETE from staff where StaffID = ("+id+")";
+        try{
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+    }
+
+    public void updateStaff(){
+        System.out.println("-----update staff-----");
+        System.out.print("staff id: ");
+        String id=scanner.next();
+        int staffid;
+        try{
+            staffid=Integer.valueOf(id);
+        }catch (Exception e){
+            System.out.println("invalid input!");
+        }
+        String sql1 = "select * from staff where StaffID = ("+id+")";
+        try{
+            result = statement.executeQuery(sql1);
+            if(result.next()){
+                System.out.println("staffid: "+result.getInt("StaffID"));
+                System.out.println("name: "+result.getString("Name"));
+                System.out.println("age: "+result.getInt("Age"));
+                System.out.println("address: "+result.getString("Address"));
+                System.out.println("phone: "+result.getString("Phone"));
+                System.out.println("employmentTime: "+result.getDate("EmploymentTime").toString()+"\n");
+            } else {
+                System.out.println("Staff Not Exist");
+                return;
+            }
+        } catch (SQLException e) {
+            System.out.println("Staff Not Exist");
+        }
+        String sql2 = "Update staff set ";
+        System.out.print("name: ");
+        String name=scanner.next();
+        sql2+=(" Name='"+name+"'");
+        System.out.print("age: ");
+        String age=scanner.next();
+        sql2+=(" ,Age="+age);
+        System.out.print("address: ");
+        String address=scanner.next();
+        sql2+=(" ,Address='"+address+"'");
+        System.out.print("phone: ");
+        String phone=scanner.next();
+        sql2+=(" ,Phone='"+phone+"'");
+
+        sql2+=(" where StaffID="+id);
+        try{
+            int res = statement.executeUpdate(sql2);
+            System.out.println("success");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
     public void execute(){
         while(true) {
-            System.out.print("enter opeartion code: ");
+            System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {
                 return;
@@ -122,22 +344,22 @@ public class StaffManagement {
                 System.out.println("--associate staff with warehouse checker role--");
             }
             else if (in.equals("6")) {
-                System.out.println("--update staff info--");
-            }
-            else if (in.equals("7")) {
                 System.out.println("--delete manager role of staff--");
             }
-            else if (in.equals("8")) {
+            else if (in.equals("7")) {
                 System.out.println("--delete cashier role of staff--");
             }
-            else if (in.equals("9")) {
+            else if (in.equals("8")) {
                 System.out.println("--delete billing staff role of staff--");
             }
-            else if (in.equals("10")) {
+            else if (in.equals("9")) {
                 System.out.println("--delete warehouse checker role of staff--");
             }
-            else if (in.equals("11")) {
+            else if (in.equals("10")) {
                 System.out.println("--delete staff--");
+            }
+            else if (in.equals("11")) {
+                System.out.println("--update staff info by id--");
             }
             else{
                 System.out.println("invalid input");
