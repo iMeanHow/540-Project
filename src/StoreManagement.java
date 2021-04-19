@@ -22,7 +22,7 @@ public class StoreManagement {
     public void findStore(){
         System.out.println("-----find staff by condition-----");
         System.out.println("--press enter to skip the input--");
-        String sql = "select * from staff where 1=1";
+        String sql = "select * from Store where 1=1";
         System.out.print("store id: ");
         String unuse=scanner.nextLine();
         String storeid=scanner.nextLine();
@@ -128,6 +128,7 @@ public class StoreManagement {
         System.out.print("Store id: ");
         String storeid=scanner.next();
         sql+=(storeid+", ");
+        System.out.print("Staff id: ");
         String staffid=scanner.next();
         sql+=(staffid+")");
         String sql1="select * from Employ where StaffID="+staffid;
@@ -152,10 +153,11 @@ public class StoreManagement {
     public void unemployStaff(){
         System.out.println("--------un-employ staff from store---------");
         System.out.println("-----no null value permitted-----");
-        String sql = "delete from Employ where";
+        String sql = "delete from Employ where ";
         System.out.print("Store id: ");
         String storeid=scanner.next();
-        sql+=("StoreID="+storeid);
+        sql+=(" StoreID="+storeid);
+        System.out.print("Staff id: ");
         String staffid=scanner.next();
         sql+=(" and StaffID="+staffid);
         try {
@@ -220,7 +222,7 @@ public class StoreManagement {
             } else if(in.equals("4")){
                 System.out.println("--new employment--");
                 employStaff();
-            } else if(in.equals("4")){
+            } else if(in.equals("5")){
                 System.out.println("--delete employment--");
                 unemployStaff();
             }
