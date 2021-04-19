@@ -39,7 +39,7 @@ public class MerchandiseManagement {
             System.out.print("buy price: ");
             String buyPrice=scanner.nextLine();
             if(!StringUtils.isNullOrEmpty(buyPrice)){
-                sql+=(" and BuyPrice='"+buyPrice+"'");
+                sql+=(" and BuyPrice="+buyPrice);
             }
             System.out.print("market price: ");
             String marketPrice=scanner.nextLine();
@@ -59,17 +59,17 @@ public class MerchandiseManagement {
             System.out.print("quantity: ");
             String quantity=scanner.nextLine();
             if(!StringUtils.isNullOrEmpty(quantity)){
-                sql+=(" and Quantity='"+quantity+"'");
+                sql+=(" and Quantity="+quantity);
             }
             System.out.print("storeid: ");
             String storeID=scanner.nextLine();
             if(!StringUtils.isNullOrEmpty(storeID)){
-                sql+=(" and StoreID='"+storeID+"'");
+                sql+=(" and StoreID="+storeID);
             }
             System.out.print("supplierid: ");
             String supplierID=scanner.nextLine();
             if(!StringUtils.isNullOrEmpty(supplierID)){
-                sql+=(" and SupplierID='"+supplierID+"'");
+                sql+=(" and SupplierID="+supplierID);
             }
         }
         try {
@@ -195,6 +195,72 @@ public class MerchandiseManagement {
         }
     }
 
+    // update and delete of onsale production is not necessary
+    public void findOnSaleProduction() {
+        System.out.println("-----find OnSaleProduction by condition-----");
+        System.out.println("--press enter to skip the input--");
+        String sql = "select * from OnSaleProductions where 1=1";
+        System.out.print("productid: ");
+        // String unuse=scanner.nextLine();
+        // two pk, so
+        String productid=scanner.nextLine();
+        System.out.print("storeid: ");
+        String storeid=scanner.nextLine();
+        if(!StringUtils.isNullOrEmpty(productid) && !StringUtils.isNullOrEmpty(storeid)){
+            sql+=(" and ProductID="+productid+" and StoreID="+storeid);
+        }
+        else{
+            System.out.print("discount: ");
+            String discount=scanner.nextLine();
+            if(!StringUtils.isNullOrEmpty(discount)){
+                sql+=(" and Discount="+discount);
+            }
+            System.out.print("valid date: ");
+            String validDate=scanner.nextLine();
+            if(!StringUtils.isNullOrEmpty(validDate)){
+                sql+=(" and ValidDate="+validDate);
+            }
+        }
+        try {
+            //System.out.println(sql);
+            result = statement.executeQuery(sql);
+            int cnt=0;
+            while (result.next()) {
+                cnt++;
+                System.out.println("\n=== No."+cnt+" ===");
+                System.out.println("productid: "+result.getInt("ProductID"));
+                System.out.println("storeid: "+result.getInt("StoreID"));
+                System.out.println("discount: "+result.getDouble("Discount"));
+                System.out.println("valid date: "+result.getDate("ValidDate")+"\n");
+            }
+            System.out.println("Total rows: "+cnt);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void createOnSaleProduction(){
+        System.out.println("--------create new onsale production---------");
+        System.out.println("-----no null value permitted-----");
+        String sql = "Insert into onsale production (ProductID,StoreID,Discount,ValidDate) values (";
+        System.out.print("product id: ");
+        sql += ("'"+scanner.next()+"'"+",");
+        System.out.print("store id: ");
+        sql += scanner.next()+",";
+        System.out.print("dsicount: ");
+        sql += ("'"+scanner.next()+"'"+",");
+        System.out.print("valid date: ");
+        sql += ("'"+scanner.next()+"'"+",");
+
+        try {
+            //System.out.println(sql);
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void execute(){
         while(true) {
             System.out.print("enter operation code: ");
@@ -222,4 +288,3 @@ public class MerchandiseManagement {
         }
     }
 }
-
