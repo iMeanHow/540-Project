@@ -333,33 +333,42 @@ public class StaffManagement {
                 createStaff();
             } else if (in.equals("2")) {
                 System.out.println("--associate staff with manager role--");
+                associateManager();
             }
             else if (in.equals("3")) {
                 System.out.println("--associate staff with cashier role--");
+                cashier();
             }
             else if (in.equals("4")) {
                 System.out.println("--associate staff with billing staff role--");
+                billingStaff();
             }
             else if (in.equals("5")) {
                 System.out.println("--associate staff with warehouse checker role--");
+                warehouseChecker();
             }
             else if (in.equals("6")) {
                 System.out.println("--delete manager role of staff--");
+                deleteAssistantManager();
             }
             else if (in.equals("7")) {
                 System.out.println("--delete cashier role of staff--");
             }
             else if (in.equals("8")) {
                 System.out.println("--delete billing staff role of staff--");
+                deleteBillingStaff();
             }
             else if (in.equals("9")) {
                 System.out.println("--delete warehouse checker role of staff--");
+                deleteWarehouseChecker();
             }
             else if (in.equals("10")) {
                 System.out.println("--delete staff--");
+                deleteStaff();
             }
             else if (in.equals("11")) {
                 System.out.println("--update staff info by id--");
+                updateStaff();
             }
             else{
                 System.out.println("invalid input");
