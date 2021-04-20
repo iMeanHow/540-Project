@@ -108,6 +108,7 @@ public class ReportGenerator {
     public void execute(){
         String unuse = scanner.nextLine();
         while(true) {
+            //while loop
             helper();
             System.out.print("enter operation code: ");
             String in = scanner.nextLine();

@@ -13,6 +13,7 @@ public class SupplierManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    //the helper function shows hint for operation code
     public static void helper(){
         System.out.println("\n0: Search Supplier");
         System.out.println("1: New Transaction");
@@ -28,13 +29,18 @@ public class SupplierManagement {
         this.scanner=scanner;
     }
 
+    // query transaction by condition
     public void findSupplier(){
         System.out.println("-----find supplier by condition-----");
         System.out.println("--press enter to skip the input--");
+
+        //for every query input, do not format it into sql if it is null
         String sql = "select * from Suppliers where 1=1";
         System.out.print("SupplierId: ");
         //String unuse=scanner.nextLine();
         String id=scanner.nextLine();
+
+        //if id is given, no need for other information
         if(!StringUtils.isNullOrEmpty(id)){
             sql+=(" and SupplierID="+id);
         }
@@ -64,6 +70,7 @@ public class SupplierManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
@@ -79,6 +86,7 @@ public class SupplierManagement {
         }
     }
 
+    // new supplier
     public void createSupplier(){
         System.out.println("--------create new supplier---------");
         System.out.println("-----no null value permitted-----");
@@ -101,6 +109,7 @@ public class SupplierManagement {
         }
     }
 
+    //delete supplier by id
     public void deleteSupplier(){
         System.out.println("--delete Supplier (not recommended)--");
         System.out.print("Supplier id: ");
@@ -120,6 +129,7 @@ public class SupplierManagement {
         }
     }
 
+    //update supplier by id
     public void updateSupplier(){
         System.out.println("-----update Supplier-----");
         System.out.print("Supplier id: ");
@@ -131,6 +141,8 @@ public class SupplierManagement {
             System.out.println("invalid input!");
         }
         String sql1 = "select * from Supplier where SupplierID = ("+id+")";
+
+        //first print the original information
         try{
             result = statement.executeQuery(sql1);
             if(result.next()){

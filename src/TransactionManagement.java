@@ -14,6 +14,7 @@ public class TransactionManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    //the helper function shows hint for operation code
     public static void helper(){
         System.out.println("\n0: Search Transaction");
         System.out.println("1: New Transaction");
@@ -28,13 +29,17 @@ public class TransactionManagement {
         this.scanner = scanner;
     }
 
+    // query transaction by condition
     public void queryTransactions(){
         System.out.println("-----find transaction by condition-----");
         System.out.println("--press enter to skip the input--");
+        //for every query input, do not format it into sql if it is null
         String sql = "select * from transactionrecords join ClubMembers on transactionrecords.CustomerID = ClubMembers.CustomerID where 1=1";
         System.out.print("TransactionID: ");
         String unuse=scanner.nextLine();
         String id=scanner.nextLine();
+
+        //if id is given, no need for other information
         if(!StringUtils.isNullOrEmpty(id)){
             sql+=(" and TransactionID="+id);
         }else{
@@ -58,6 +63,8 @@ public class TransactionManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
@@ -74,6 +81,15 @@ public class TransactionManagement {
             System.out.println(e.getMessage());
         }
     }
+
+    /*
+    * new transaction
+    * 1. load discount information
+    * 2. reduce stock & judge whether the product expired or not
+    * 3. insert transaction record which include general information
+    * 4. insert transaction contains which include product list
+    * roll back if any step fails
+    * */
 
     public void newTransaction(){
         System.out.println("-----new transaction -----");
@@ -94,6 +110,8 @@ public class TransactionManagement {
             idList.add(scanner.nextInt());
             System.out.print("count: ");
             cntList.add(scanner.nextInt());
+
+            //support multiple product
             System.out.print("type y to continue(others would end): ");
             if(!scanner.next().equals('y')){
                 break;
@@ -105,6 +123,7 @@ public class TransactionManagement {
             connection.setSavepoint();
             connection.setAutoCommit(false);
             for(int i=0;i<idList.size();i++){
+                //Step 1 load discount information
                 String sql0="select * from onsaleproductions where ProductID="+idList.get(i)+" and ValidDate > now()";
                 try {
                     //first insert clubmemer
@@ -121,6 +140,7 @@ public class TransactionManagement {
                     return;
                 }
 
+                // Step 2 reduce stock & judge whether the product expired or not
                 String sql1="update merchandise set Quantity=Quantity-"+cntList.get(i)+" where ProductID="+idList.get(i)+" and ExpirationDate > now()";
                 try {
                     //first insert clubmemer
@@ -154,6 +174,8 @@ public class TransactionManagement {
                     return;
                 }
             }
+
+            // Step 3 insert transaction record which include general information
             String sql3="insert into transactionrecords(cashierid,storeid,totalprice,date,customerid) values("+cashierid+","+storeid+","+totalPrice+",now(), "+customerid+")";
             int tid=0;
             try {
@@ -172,6 +194,7 @@ public class TransactionManagement {
                 return;
             }
 
+            // Step 4 insert transaction contains which include product list
             for(int i=0;i<idList.size();i++){
                 String sql4="insert into transactionContains(transactionid,productid,count,actualprice) values(";
                 sql4+=tid;
@@ -205,6 +228,7 @@ public class TransactionManagement {
         }
     }
 
+    //query product list with their name, actual-price...
     public void queryTransactionDetail(){
         System.out.println("-----find transaction detail by condition-----");
         System.out.println("--press enter to skip the input--");
@@ -223,9 +247,7 @@ public class TransactionManagement {
                 System.out.println("transaction id: "+result.getInt("TransactionID"));
                 System.out.println("product id: "+result.getInt("ProductID"));
                 System.out.println("product name: "+result.getString("ProductName"));
-                System.out.println("customer id: "+result.getInt("CustomerID"));
-                System.out.println("total price: "+result.getDouble("TotalPrice"));
-                System.out.println("total price: "+result.getDate("Date").toString());
+                System.out.println("actual price: "+result.getDouble("ActualPrice"));
             }
             System.out.println("Total rows: "+cnt);
         } catch (SQLException e) {

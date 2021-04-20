@@ -11,6 +11,7 @@ public class WolfStore {
     private static Statement statement = null;
     private static ResultSet result = null;
 
+    //connect to db when initiating
     private static void connectToDatabase() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection(jdbcURL, user, password);
@@ -25,6 +26,7 @@ public class WolfStore {
     private static ReportGenerator reportGenerator;
     private static TransactionManagement transactionManagement;
 
+    //the helper function shows hint for operation code
     public static void helper(){
         System.out.println("1: Staff Management");
         System.out.println("2: Store Management");
@@ -39,6 +41,7 @@ public class WolfStore {
 
 
     public static void main(String[] args) {
+        //entry of the program, call other function from here
         System.out.println("===Welcome to WolfStore System===\n");
         try {
             connectToDatabase();
@@ -50,6 +53,9 @@ public class WolfStore {
 
         Scanner scanner = new Scanner(System.in);
         while(true){
+            //while loop to perform operation selection and execution
+            //the helper function shows hint for operation code
+
             helper();
             String in =scanner.next();
             if(in.equals("1")){
@@ -98,6 +104,7 @@ public class WolfStore {
                 return;
             }
             else{
+                //if operation code does not match any, show helper again
                 System.out.println("Invalid input!");
                 helper();
             }

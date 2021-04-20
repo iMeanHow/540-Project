@@ -12,6 +12,7 @@ public class StoreManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    //the helper function shows hint for operation code
     public static void helper(){
         System.out.println("\n0: Search Store");
         System.out.println("1: New Store");
@@ -29,13 +30,18 @@ public class StoreManagement {
         this.scanner = scanner;
     }
 
+    //query store by condition search
     public void findStore(){
         System.out.println("-----find staff by condition-----");
         System.out.println("--press enter to skip the input--");
+
+        //for every query input, do not format it into sql if it is null
         String sql = "select * from Store where 1=1";
         System.out.print("store id: ");
         String unuse=scanner.nextLine();
         String storeid=scanner.nextLine();
+
+        //if id is given, no need for other information
         if(!StringUtils.isNullOrEmpty(storeid)){
             sql+=(" and StoreID="+storeid);
         }else{
@@ -59,6 +65,7 @@ public class StoreManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
@@ -73,6 +80,8 @@ public class StoreManagement {
         }
     }
 
+    //create store
+    // the staff id of manager will be check before assign to store
     public void newStore(){
         System.out.println("--------create new store---------");
         System.out.println("-----no null value permitted-----");
@@ -86,6 +95,7 @@ public class StoreManagement {
             System.out.println("invalid manager id");
             return;
         }
+        //check manager role qualified or not
         String managerSQL = "select * from AssistantManager where StaffID = "+managerid;
         try {
             result = statement.executeQuery(managerSQL);
@@ -110,6 +120,7 @@ public class StoreManagement {
         }
     }
 
+    //delete store by id
     public void deleteStore(){
         System.out.println("-----delete store-----");
         System.out.print("store id: ");
@@ -130,7 +141,7 @@ public class StoreManagement {
         }
     }
 
-
+    // create employ relation between staff & store
     public void employStaff(){
         System.out.println("--------employ staff to store---------");
         System.out.println("-----no null value permitted-----");
@@ -160,6 +171,7 @@ public class StoreManagement {
         }
     }
 
+    //eliminate the employ relaton for store and staff
     public void unemployStaff(){
         System.out.println("--------un-employ staff from store---------");
         System.out.println("-----no null value permitted-----");
@@ -179,6 +191,7 @@ public class StoreManagement {
         }
     }
 
+    //query employ relation, format query sql with no null input
     public void queryEmploy(){
         System.out.println("-----find employment by condition-----");
         System.out.println("--press enter to skip the input--");
@@ -197,6 +210,8 @@ public class StoreManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
@@ -210,7 +225,7 @@ public class StoreManagement {
     }
 
 
-
+    //entry of store management
     public void execute(){
         while(true) {
             helper();
