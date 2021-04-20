@@ -147,7 +147,7 @@ public class TransactionManagement {
                     return;
                 }
             }
-            String sql3="insert into transactionrecords(cashierid,storeid,totalprice,date,customerid) values("+cashierid+","+storeid+","+totalPrice+",now()"+customerid+")";
+            String sql3="insert into transactionrecords(cashierid,storeid,totalprice,date,customerid) values("+cashierid+","+storeid+","+totalPrice+",now(), "+customerid+")";
             int tid=0;
             try {
                 //first insert clubmemer
@@ -215,7 +215,7 @@ public class TransactionManagement {
                 System.out.println("\n=== No."+cnt+" ===");
                 System.out.println("transaction id: "+result.getInt("TransactionID"));
                 System.out.println("product id: "+result.getInt("ProductID"));
-                System.out.println("product name: "+result.getInt("ProductName"));
+                System.out.println("product name: "+result.getString("ProductName"));
                 System.out.println("customer id: "+result.getInt("CustomerID"));
                 System.out.println("total price: "+result.getDouble("TotalPrice"));
                 System.out.println("total price: "+result.getDate("Date").toString());

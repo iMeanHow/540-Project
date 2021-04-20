@@ -139,7 +139,7 @@ public class MemberManagement {
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No." + cnt + " ===");
-                System.out.println("member id: " + result.getInt("MemberID"));
+                System.out.println("member id: " + result.getInt("customerid"));
                 System.out.println("email: " + result.getString("email"));
                 System.out.println("first name: " + result.getString("firstName"));
                 System.out.println("last name: " + result.getString("lastName"));

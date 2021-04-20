@@ -89,7 +89,7 @@ public class MerchandiseManagement {
                 System.out.println("storeid: "+result.getInt("StoreID"));
                 System.out.println("supplierid: "+result.getInt("SupplierID")+"\n");
             }
-            System.out.println("Total rows: "+cnt);
+            System.out.println("\nTotal rows: "+cnt);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -104,18 +104,21 @@ public class MerchandiseManagement {
         System.out.print("buy price: ");
         sql += scanner.next()+",";
         System.out.print("market price: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += (scanner.next()+",");
         System.out.print("product date: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        String unuse=scanner.nextLine();
+        sql += ("'"+scanner.nextLine()+"'"+",");
+        System.out.print("expire date: ");
+        sql += ("'"+scanner.nextLine()+"'"+",");
         System.out.print("quantity: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += (scanner.next()+",");
         System.out.print("storeid: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += (scanner.next()+",");
         System.out.print("supplierid: ");
-        sql += ("'"+scanner.next()+"'"+",");
-
+        sql += (scanner.next());
+        sql+=")";
         try {
-            //System.out.println(sql);
+            System.out.println(sql);
             int res = statement.executeUpdate(sql);
             System.out.println("Success");
         } catch (SQLException e) {
@@ -222,7 +225,7 @@ public class MerchandiseManagement {
             }
         }
         try {
-            //System.out.println(sql);
+            System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
             while (result.next()) {
@@ -244,11 +247,11 @@ public class MerchandiseManagement {
         System.out.println("-----no null value permitted-----");
         String sql = "Insert into onsale production (ProductID,StoreID,Discount,ValidDate) values (";
         System.out.print("product id: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += (scanner.next()+",");
         System.out.print("store id: ");
-        sql += scanner.next()+",";
+        sql += (scanner.next()+",");
         System.out.print("dsicount: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += (scanner.next()+",");
         System.out.print("valid date: ");
         sql += ("'"+scanner.next()+"'"+",");
 

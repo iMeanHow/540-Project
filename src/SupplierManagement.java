@@ -60,7 +60,7 @@ public class SupplierManagement {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
                 System.out.println("Supplierid: "+result.getInt("SupplierID"));
-                System.out.println("Name: "+result.getString("Name"));
+                System.out.println("SupplierName: "+result.getString("SupplierName"));
                 System.out.println("Email: "+result.getString("Email"));
                 System.out.println("Location: "+result.getString("Location"));
                 System.out.println("phone: "+result.getString("Phone")+"\n");
@@ -74,16 +74,16 @@ public class SupplierManagement {
     public void createSupplier(){
         System.out.println("--------create new supplier---------");
         System.out.println("-----no null value permitted-----");
-        String sql = "Insert into supplier (SupplierName,Email,Location,Phone) values (";
+        String sql = "Insert into suppliers (SupplierName,Email,Location,Phone) values (";
         System.out.print("name: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += ("'"+scanner.nextLine()+"'"+",");
         System.out.print("email: ");
-        sql += scanner.next()+",";
+        sql += ("'"+scanner.nextLine()+"'"+",");
         System.out.print("location: ");
-        sql += ("'"+scanner.next()+"'"+",");
+        sql += ("'"+scanner.nextLine()+"'"+",");
         System.out.print("phone: ");
-        sql += ("'"+scanner.next()+"'"+",");
-
+        sql += ("'"+scanner.nextLine()+"'");
+        sql+=")";
         try {
             //System.out.println(sql);
             int res = statement.executeUpdate(sql);
@@ -96,14 +96,14 @@ public class SupplierManagement {
     public void deleteSupplier(){
         System.out.println("--delete Supplier (not recommended)--");
         System.out.print("Supplier id: ");
-        String id=scanner.next();
+        String id=scanner.nextLine();
         int Supplierid;
         try{
             Supplierid=Integer.valueOf(id);
         }catch (Exception e){
             System.out.println("invalid input!");
         }
-        String sql = "DELETE from Supplier where SupplierID = ("+id+")";
+        String sql = "DELETE from Suppliers where SupplierID = ("+id+")";
         try{
             int res = statement.executeUpdate(sql);
             System.out.println("Success");
@@ -115,7 +115,7 @@ public class SupplierManagement {
     public void updateSupplier(){
         System.out.println("-----update Supplier-----");
         System.out.print("Supplier id: ");
-        String id=scanner.next();
+        String id=scanner.nextLine();
         int Supplierid;
         try{
             Supplierid=Integer.valueOf(id);
@@ -127,7 +127,7 @@ public class SupplierManagement {
             result = statement.executeQuery(sql1);
             if(result.next()){
                 System.out.println("Supplierid: "+result.getInt("SupplierID"));
-                System.out.println("Name: "+result.getString("Name"));
+                System.out.println("Name: "+result.getString("SupplierName"));
                 System.out.println("Email: "+result.getString("Email"));
                 System.out.println("Location: "+result.getString("Location"));
                 System.out.println("phone: "+result.getString("Phone")+"\n");
@@ -140,16 +140,16 @@ public class SupplierManagement {
         }
         String sql2 = "Update Supplier set ";
         System.out.print("name: ");
-        String name=scanner.next();
+        String name=scanner.nextLine();
         sql2+=(" Name='"+name+"'");
         System.out.print("email: ");
-        String email=scanner.next();
+        String email=scanner.nextLine();
         sql2+=(" ,email="+email);
         System.out.print("location: ");
-        String location=scanner.next();
+        String location=scanner.nextLine();
         sql2+=(" ,location='"+location+"'");
         System.out.print("phone: ");
-        String phone=scanner.next();
+        String phone=scanner.nextLine();
         sql2+=(" ,Phone='"+phone+"'");
 
         sql2+=(" where SupplierID="+id);
@@ -164,7 +164,7 @@ public class SupplierManagement {
     public void execute(){
         while(true) {
             System.out.print("enter operation code: ");
-            String in = scanner.next();
+            String in = scanner.nextLine();
             if (in.equals("back")) {
                 return;
             } else if (in.equals("0")) {
