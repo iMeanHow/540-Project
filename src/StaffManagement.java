@@ -14,6 +14,23 @@ public class StaffManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    public static void helper(){
+
+        System.out.println("\n0: Search Staff");
+        System.out.println("1: New Staff");
+        System.out.println("2: Create Manager");
+        System.out.println("3: Create Cashier");
+        System.out.println("4: Create Billing Staff");
+        System.out.println("5: Create Warehouse Checker");
+        System.out.println("6: Delete Manager Role");
+        System.out.println("7: Delete Cashier Role");
+        System.out.println("8: Delete Billing Staff Role");
+        System.out.println("9: Delete Warehouse Checker Role");
+        System.out.println("10: Delete Staff");
+        System.out.println("11: Update Staff");
+        System.out.println("back: return last menu");
+    }
+
     public StaffManagement(Connection connection,Statement statement,ResultSet result,Scanner scanner){
         this.connection=connection;
         this.statement=statement;
@@ -329,6 +346,7 @@ public class StaffManagement {
 
     public void execute(){
         while(true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {

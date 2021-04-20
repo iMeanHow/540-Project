@@ -13,6 +13,14 @@ public class SupplierManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    public static void helper(){
+        System.out.println("\n0: Search Supplier");
+        System.out.println("1: New Transaction");
+        System.out.println("2: Delete Supplier");
+        System.out.println("3: Update Supplier");
+        System.out.println("back: return last menu");
+    }
+
     public SupplierManagement(Connection connection,Statement statement,ResultSet result,Scanner scanner){
         this.connection=connection;
         this.statement=statement;
@@ -163,6 +171,7 @@ public class SupplierManagement {
 
     public void execute(){
         while(true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.nextLine();
             if (in.equals("back")) {

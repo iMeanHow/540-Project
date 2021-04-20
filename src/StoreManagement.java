@@ -12,6 +12,16 @@ public class StoreManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    public static void helper(){
+        System.out.println("\n0: Search Store");
+        System.out.println("1: New Store");
+        System.out.println("2: Delete Store");
+        System.out.println("3: Search Employment");
+        System.out.println("4: New Employment");
+        System.out.println("5: Delete Employment");
+        System.out.println("back: return last menu");
+    }
+
     public StoreManagement(Connection connection,Statement statement,ResultSet result,Scanner scanner) {
         this.connection = connection;
         this.statement = statement;
@@ -203,6 +213,7 @@ public class StoreManagement {
 
     public void execute(){
         while(true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {

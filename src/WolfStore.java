@@ -80,7 +80,7 @@ public class WolfStore {
             else if(in.equals("6")){
                 System.out.println("=====Billing Management=====");
                 billManagement=new BillManagement(connection,statement,result,scanner);
-                billManagement.execute();
+                //billManagement.execute();
             }
             else if(in.equals("7")){
                 System.out.println("=====Transaction Management=====");

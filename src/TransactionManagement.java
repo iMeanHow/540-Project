@@ -14,6 +14,13 @@ public class TransactionManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    public static void helper(){
+        System.out.println("\n0: Search Transaction");
+        System.out.println("1: New Transaction");
+        System.out.println("2: Query Transaction Detail");
+        System.out.println("back: return last menu");
+    }
+
     public TransactionManagement(Connection connection,Statement statement,ResultSet result,Scanner scanner) {
         this.connection = connection;
         this.statement = statement;
@@ -180,7 +187,7 @@ public class TransactionManagement {
                     int res = statement.executeUpdate(sql4);
                 } catch (SQLException e) {
                     //rollback when failed
-                    System.out.println("failed! make sure staff is employed!");
+                    System.out.println(e.getMessage());
                     connection.rollback();
                 }
 
@@ -228,6 +235,7 @@ public class TransactionManagement {
 
     public void execute(){
         while(true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {
