@@ -14,8 +14,8 @@ public class StaffManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    //the helper function shows hint for operation code
     public static void helper(){
-
         System.out.println("\n0: Search Staff");
         System.out.println("1: New Staff");
         System.out.println("2: Create Manager");
@@ -38,13 +38,18 @@ public class StaffManagement {
         this.scanner=scanner;
     }
 
+    // query staff by condition search
     public void findStaff(){
         System.out.println("-----find staff by condition-----");
         System.out.println("--press enter to skip the input--");
+
+        //for every query input, do not format it into sql if it is null
         String sql = "select * from staff where 1=1 ";
         System.out.print("staffId: ");
         String unuse=scanner.nextLine();
         String id=scanner.nextLine();
+
+        //if id is given, no need for other information
         if(!StringUtils.isNullOrEmpty(id)){
             sql+=(" and StaffID="+id);
         }
@@ -74,6 +79,8 @@ public class StaffManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
@@ -90,6 +97,7 @@ public class StaffManagement {
         }
     }
 
+    //new staff
     public void createStaff(){
         System.out.println("--------create new staff---------");
         System.out.println("-----no null value permitted-----");
@@ -113,6 +121,7 @@ public class StaffManagement {
         }
     }
 
+    //new manager with staff id reference
     public void associateManager(){
         System.out.println("--------associate manager---------");
         System.out.print("staff id: ");
@@ -133,6 +142,7 @@ public class StaffManagement {
         }
     }
 
+    //new billing staff with staff id reference
     public void billingStaff(){
         System.out.println("---associate billing staff---");
         System.out.print("staff id: ");
@@ -153,6 +163,7 @@ public class StaffManagement {
         }
     }
 
+    //new cashier with staff id reference
     public void cashier(){
         System.out.println("--------associate cashier---------");
         System.out.print("staff id: ");
@@ -173,6 +184,7 @@ public class StaffManagement {
         }
     }
 
+    //new warehouse checker with staff id
     public void warehouseChecker(){
         System.out.println("--associate warehouse checker--");
         System.out.print("staff id: ");
@@ -193,6 +205,7 @@ public class StaffManagement {
         }
     }
 
+    //delete manager role by id
     public void deleteAssistantManager(){
         System.out.println("-----delete manager-----");
         System.out.print("staff id: ");
@@ -213,6 +226,7 @@ public class StaffManagement {
         }
     }
 
+    //delete billing staff role by id
     public void deleteBillingStaff(){
         System.out.println("--delete billing staff--");
         System.out.print("staff id: ");
@@ -233,6 +247,7 @@ public class StaffManagement {
         }
     }
 
+    //delete cashier role by id
     public void deleteCashier(){
         System.out.println("--delete cashier--");
         System.out.print("staff id: ");
@@ -253,6 +268,7 @@ public class StaffManagement {
         }
     }
 
+    //delete warehouse checker by id
     public void deleteWarehouseChecker(){
         System.out.println("--delete warehouse checker--");
         System.out.print("staff id: ");
@@ -273,6 +289,7 @@ public class StaffManagement {
         }
     }
 
+    //delete staff by id (not recommended)
     public void deleteStaff(){
         System.out.println("--delete staff (not recommended)--");
         System.out.print("staff id: ");
@@ -292,6 +309,7 @@ public class StaffManagement {
         }
     }
 
+    //update staff info by id
     public void updateStaff(){
         System.out.println("-----update staff-----");
         System.out.print("staff id: ");
@@ -303,6 +321,8 @@ public class StaffManagement {
             System.out.println("invalid input!");
         }
         String sql1 = "select * from staff where StaffID = ("+id+")";
+
+        //print original info first
         try{
             result = statement.executeQuery(sql1);
             if(result.next()){
@@ -319,6 +339,8 @@ public class StaffManagement {
         } catch (SQLException e) {
             System.out.println("Staff Not Exist");
         }
+
+        //load updated information from input
         String sql2 = "Update staff set ";
         System.out.print("name: ");
         String name=scanner.next();
@@ -342,8 +364,7 @@ public class StaffManagement {
         }
     }
 
-
-
+    //entry of staff management functions
     public void execute(){
         while(true) {
             helper();

@@ -10,6 +10,7 @@ public class ReportGenerator {
     private ResultSet result;
     private Scanner scanner;
 
+    //the helper function shows hint for operation code
     public void helper(){
         System.out.println("\n0: Customer Growth of Store");
         System.out.println("1: Customer Expense");
@@ -25,6 +26,7 @@ public class ReportGenerator {
         this.scanner = scanner;
     }
 
+    //calculate customer growth of store within period of time
     public void customerGrowth(){
         System.out.println("==customer growth report==");
         System.out.print("store id: ");
@@ -45,6 +47,7 @@ public class ReportGenerator {
         }
     }
 
+    //calculate customer expense within period of time
     public void customerExpense(){
         System.out.println("==customer expense report==");
         System.out.print("customer id: ");
@@ -65,6 +68,7 @@ public class ReportGenerator {
         }
     }
 
+    //calculate store sale within period of time
     public void storeSale(){
         System.out.println("==store sale report==");
         System.out.print("store id: ");
@@ -85,6 +89,7 @@ public class ReportGenerator {
         }
     }
 
+    //calculate product sale num growth of store within period of time
     public void productSale(){
         System.out.println("==product sale num report==");
         System.out.print("product id: ");
@@ -93,6 +98,8 @@ public class ReportGenerator {
         String sdate = scanner.nextLine();
         System.out.print("end date: ");
         String edate = scanner.nextLine();
+
+        //join to get product information which not includes in TransactionContains
         String sql = "select sum(Count) as num from TransactionContains join TransactionRecords on TransactionContains.TransactionID = TransactionRecords.TransactionID where ProductID="+pid+" and Date > '"+sdate+"' and Date < '"+edate+"'";
         try {
             //System.out.println(sql);
@@ -105,6 +112,7 @@ public class ReportGenerator {
         }
     }
 
+    //entry of 
     public void execute(){
         String unuse = scanner.nextLine();
         while(true) {

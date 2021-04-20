@@ -55,9 +55,10 @@ public class WolfStore {
         while(true){
             //while loop to perform operation selection and execution
             //the helper function shows hint for operation code
-
             helper();
             String in =scanner.next();
+
+            //execute function of each object is the entry of specific operation choose
             if(in.equals("1")){
                 System.out.println("=====Staff Management=====");
                 staffManagement=new StaffManagement(connection,statement,result,scanner);

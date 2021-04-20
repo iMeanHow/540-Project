@@ -29,7 +29,7 @@ public class SupplierManagement {
         this.scanner=scanner;
     }
 
-    // query transaction by condition
+    // query supplier by condition
     public void findSupplier(){
         System.out.println("-----find supplier by condition-----");
         System.out.println("--press enter to skip the input--");
@@ -70,6 +70,7 @@ public class SupplierManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+
             //print all qualified result one by one
             while (result.next()) {
                 cnt++;
