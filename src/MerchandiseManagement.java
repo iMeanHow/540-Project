@@ -13,6 +13,7 @@ public class MerchandiseManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    //the helper function shows hint for operation code
     public void helper(){
 
         System.out.println("\n0: Search Merchandise");
@@ -30,13 +31,18 @@ public class MerchandiseManagement {
         this.scanner=scanner;
     }
 
+    // query merchandise by condition search
     public void findMerchandise(){
         System.out.println("-----find merchandise by condition-----");
         System.out.println("--press enter to skip the input--");
+
+        //for every query input, do not add it into sql if it is null
         String sql = "select * from merchandise where 1=1";
         System.out.print("merchandiseId: ");
         String unuse=scanner.nextLine();
         String id=scanner.nextLine();
+
+        //if id is given, no need for other information
         if(!StringUtils.isNullOrEmpty(id)){
             sql+=(" and ProductID="+id);
         }
@@ -86,6 +92,8 @@ public class MerchandiseManagement {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
+
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No."+cnt+" ===");
@@ -105,6 +113,7 @@ public class MerchandiseManagement {
         }
     }
 
+    //new merchandise, no null value
     public void createMerchandise(){
         System.out.println("--------create new merchandise---------");
         System.out.println("-----no null value permitted-----");
@@ -136,6 +145,7 @@ public class MerchandiseManagement {
         }
     }
 
+    //delete merchandise by id, not recommend, delete other reference first
     public void deleteMerchandise(){
         System.out.println("--delete merchandise (not recommended)--");
         System.out.print("merchandise id: ");
@@ -155,6 +165,7 @@ public class MerchandiseManagement {
         }
     }
 
+    //update by merchandise id, for scenario like add stock of product
     public void updateMerchandise(){
         System.out.println("-----update merchandise-----");
         System.out.print("merchandise id: ");
@@ -208,7 +219,7 @@ public class MerchandiseManagement {
         }
     }
 
-    // update and delete of onsale production is not necessary
+    // query discount info of product
     public void findOnSaleProduction() {
         System.out.println("-----find OnSaleProduction by condition-----");
         System.out.println("--press enter to skip the input--");
@@ -252,6 +263,8 @@ public class MerchandiseManagement {
         }
     }
 
+    // create discount information of product
+    // the discount shall have a valid time, after the valid time it would not effect
     public void createOnSaleProduction(){
         System.out.println("--------create new onsale production---------");
         System.out.println("-----no null value permitted-----");
@@ -274,6 +287,7 @@ public class MerchandiseManagement {
         }
     }
 
+    //entry of merchandise and discount management
     public void execute(){
         while(true) {
             helper();

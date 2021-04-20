@@ -31,6 +31,7 @@ public class MemberManagement {
         this.scanner = scanner;
     }
 
+    // create new club member by employed staff
     public void signUpNewMember() {
         System.out.println("Sign up new club member");
         System.out.println("No null value permitted");
@@ -53,6 +54,9 @@ public class MemberManagement {
         System.out.print("staff id: ");
         String staffid=scanner.next();
         int customerid=0;
+        //use transaction
+        //1. insert clubmemer
+        //2. insert registration record
         try {
             //begin transaction
             connection.setSavepoint();
@@ -90,6 +94,7 @@ public class MemberManagement {
             e.printStackTrace();
         }finally {
             try {
+                //resume auto commit after transaction
                 connection.setAutoCommit(true);
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -97,13 +102,18 @@ public class MemberManagement {
         }
     }
 
+    // query member by condition search
     public void findMember() {
         System.out.println("Find club member by condition");
         System.out.println("Press enter to skip the input");
+
+        //for every query input, do not add it into sql if it is null
         String sql = "select * from ClubMembers where 1=1";
         System.out.print("memberId: ");
         scanner.nextLine();
         String id = scanner.nextLine();
+
+        //if id is given, no need for other information
         if (!StringUtils.isNullOrEmpty(id)) {
             sql += (" and MemberID=" + id);
         } else {
@@ -146,6 +156,8 @@ public class MemberManagement {
         try {
             result = statement.executeQuery(sql);
             int cnt = 0;
+
+            //print all qualified result one by one
             while (result.next()) {
                 cnt++;
                 System.out.println("\n=== No." + cnt + " ===");
@@ -165,6 +177,7 @@ public class MemberManagement {
     }
 
 
+    //update member info by id
     public void updateMember() {
         System.out.println("Update club member");
         System.out.print("member id: ");
@@ -176,6 +189,8 @@ public class MemberManagement {
             System.out.println("invalid input!");
         }
         String sql1 = "select * from ClubMembers where MemberID = (" + id + ")";
+
+        // print original info first
         try {
             result = statement.executeQuery(sql1);
             if (result.next()) {
@@ -196,6 +211,7 @@ public class MemberManagement {
         }
         String sql2 = "Update clubmembers set ";
 
+        //load new info of member for update
         System.out.print("First Name: ");
         String firstName = scanner.next();
         sql2 += (" First Name='" + firstName + "'");
@@ -224,6 +240,7 @@ public class MemberManagement {
         }
     }
 
+    //delete member by id
     public void deleteMember() {
         System.out.println("Delete club member");
         System.out.print("member id: ");
@@ -243,6 +260,7 @@ public class MemberManagement {
         }
     }
 
+    //entry of club member management function
     public void execute() {
         while (true) {
             helper();

@@ -112,7 +112,7 @@ public class ReportGenerator {
         }
     }
 
-    //entry of 
+    //entry of report function
     public void execute(){
         String unuse = scanner.nextLine();
         while(true) {

@@ -12,15 +12,15 @@ public class BillManagement {
     private ResultSet result;
     private Scanner scanner;
 
-    public void helper(){
-
-        System.out.println("\n0: Search Bill");
-        System.out.println("1: New Bill");
-        System.out.println("2: Delete Bill");
-        System.out.println("3: Update Bill Status");
-        System.out.println("4: Create Supplier owed to bill");
-        System.out.println("5: Create Staff pay for bill");
-        System.out.println("6: Create member reward bill");
+    // the helper function shows hint for operation code
+    public static void helper(){
+        System.out.println("\n0:--search bill--");
+        System.out.println("1: --new bill--");
+        System.out.println("2:--delete bill--");
+        System.out.println("3:--update bill status--");
+        System.out.println("4:--Insert into OweTo--");
+        System.out.println("5:--Insert into PayFor--");
+        System.out.println("6:--Insert into ReturnReward--");
         System.out.println("back: return last menu");
     }
 
@@ -31,13 +31,18 @@ public class BillManagement {
         this.scanner = scanner;
     }
 
+    //query bill by condition search
     public void findBill(){
         System.out.println("-----find bill by condition-----");
         System.out.println("--press enter to skip the input--");
+
+        //for every query input, do not format it into sql if it is null
         String sql = "select * from Bills where 1=1";
         System.out.print("bill id: ");
         //String unuse=scanner.nextLine();
         String billid=scanner.nextLine();
+
+        //if id is given, no need for other information
         if(!StringUtils.isNullOrEmpty(billid)){
             sql+=(" and BillID="+billid);
         }else{
@@ -55,6 +60,7 @@ public class BillManagement {
         try {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
+            //print all qualified result one by one
             int cnt=0;
             while (result.next()) {
                 cnt++;
@@ -69,6 +75,8 @@ public class BillManagement {
         }
     }
 
+    // create bill
+    // the bill id will be check before assign to store
     public void createBill(){
         System.out.println("--------create new bill---------");
         System.out.println("-----no null value permitted-----");
@@ -77,21 +85,16 @@ public class BillManagement {
         sql += scanner.next()+",";
         System.out.print("payment status: ");
         sql += scanner.next()+")";
-        int billid=0;
+
         try {
             //System.out.println(sql);
-            int res = statement.executeUpdate(sql,statement.RETURN_GENERATED_KEYS);
-            ResultSet generatedKeys = statement.getGeneratedKeys();
-
-            if (generatedKeys.next()) {
-                //get generatedKeys for insert registration record
-                billid=generatedKeys.getInt("GENERATED_KEY");
-            }
-            System.out.println("Success insert bill id: "+billid);
+            int res = statement.executeUpdate(sql);
+            System.out.println("Success");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }    }
 
+    //delete bill by id
     public void deleteBill(){
         System.out.println("-----delete bill-----");
         System.out.print("bill id: ");
@@ -112,6 +115,7 @@ public class BillManagement {
         }
     }
 
+    // update bill status, only payment status can change
     public void updateBillStatus() {
         System.out.println("-----update bill-----");
         System.out.print("bill id: ");
@@ -150,6 +154,7 @@ public class BillManagement {
         }
     }
 
+    // create oweto relation to supplier
     public void OwedTo() {
         System.out.println("--------Owed To Supplier---------");
         System.out.println("-----no null value permitted-----");
@@ -170,6 +175,7 @@ public class BillManagement {
         }
     }
 
+    // create payfor relation to staff
     public void PayFor() {
         System.out.println("--------Pay For Staff---------");
         System.out.println("-----no null value permitted-----");
@@ -190,6 +196,7 @@ public class BillManagement {
         }
     }
 
+    // create return reward relation to customer
     public void ReturnReward() {
         System.out.println("--------Return Reward Customer---------");
         System.out.println("-----no null value permitted-----");
@@ -210,9 +217,9 @@ public class BillManagement {
         }
     }
 
+    // entry of bill management
     public void execute(){
         while(true) {
-            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {
