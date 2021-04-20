@@ -12,14 +12,18 @@ public class BillManagement {
     private ResultSet result;
     private Scanner scanner;
 
-    public static void helper(){
-        System.out.println("\n0: Search Supplier");
-        System.out.println("1: New Transaction");
-        System.out.println("2: Delete Supplier");
-        System.out.println("3: Update Supplier");
+    public void helper(){
+
+        System.out.println("\n0: Search Bill");
+        System.out.println("1: New Bill");
+        System.out.println("2: Delete Bill");
+        System.out.println("3: Update Bill Status");
+        System.out.println("4: Create Supplier owed to bill");
+        System.out.println("5: Create Staff pay for bill");
+        System.out.println("6: Create member reward bill");
         System.out.println("back: return last menu");
     }
-    
+
     public BillManagement(Connection connection,Statement statement,ResultSet result,Scanner scanner) {
         this.connection = connection;
         this.statement = statement;
@@ -208,6 +212,7 @@ public class BillManagement {
 
     public void execute(){
         while(true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {

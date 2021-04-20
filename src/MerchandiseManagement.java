@@ -13,6 +13,16 @@ public class MerchandiseManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    public void helper(){
+
+        System.out.println("\n0: Search Merchandise");
+        System.out.println("1: New Merchandise");
+        System.out.println("2: Delete merchandise");
+        System.out.println("3: Update Merchandise");
+        System.out.println("back: return last menu");
+    }
+
+
     public MerchandiseManagement(Connection connection,Statement statement,ResultSet result,Scanner scanner){
         this.connection=connection;
         this.statement=statement;
@@ -266,6 +276,7 @@ public class MerchandiseManagement {
 
     public void execute(){
         while(true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {

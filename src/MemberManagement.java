@@ -14,6 +14,16 @@ public class MemberManagement {
     private ResultSet result;
     private Scanner scanner;
 
+    public void helper(){
+
+        System.out.println("\n0: SignUp New Club Member");
+        System.out.println("1: Find Club Member");
+        System.out.println("2: Update Member");
+        System.out.println("3: Delete Member");
+        System.out.println("back: return last menu");
+    }
+
+
     public MemberManagement(Connection connection, Statement statement, ResultSet result, Scanner scanner) {
         this.connection = connection;
         this.statement = statement;
@@ -235,6 +245,7 @@ public class MemberManagement {
 
     public void execute() {
         while (true) {
+            helper();
             System.out.print("enter operation code: ");
             String in = scanner.next();
             if (in.equals("back")) {
@@ -252,10 +263,9 @@ public class MemberManagement {
                 System.out.println("delete member");
                 deleteMember();
             }
-//            } else if (in.equals("4")) {
-//                System.out.println("----");
-//                foo();
-
+            else{
+                System.out.println("invalid input");
+            }
         }
     }
 }
