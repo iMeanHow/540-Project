@@ -235,7 +235,7 @@ public class MerchandiseManagement {
             }
         }
         try {
-            System.out.println(sql);
+            //System.out.println(sql);
             result = statement.executeQuery(sql);
             int cnt=0;
             while (result.next()) {
