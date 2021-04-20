@@ -11,7 +11,11 @@ public class ReportGenerator {
     private Scanner scanner;
 
     public void helper(){
-
+        System.out.println("\n0: Customer Growth of Store");
+        System.out.println("1: Customer Expense");
+        System.out.println("2: Store Sales");
+        System.out.println("3: Product Sale Num");
+        System.out.println("back: return last menu");
     }
 
     public ReportGenerator(Connection connection,Statement statement,ResultSet result,Scanner scanner) {
@@ -22,8 +26,7 @@ public class ReportGenerator {
     }
 
     public void customerGrowth(){
-        System.out.println("Find club member by condition");
-        System.out.println("Press enter to skip the input");
+        System.out.println("==customer growth report==");
         System.out.print("store id: ");
         String sid = scanner.nextLine();
         System.out.print("start date: ");
@@ -35,27 +38,75 @@ public class ReportGenerator {
             //System.out.println(sql);
             result = statement.executeQuery(sql);
             while (result.next()) {
-                System.out.println("New Customer Growth: "+result.getInt("num")+"\n");
+                System.out.println("\n===New Customer Growth: "+result.getInt("num")+"===\n");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public void customerExpense(){
-
+        System.out.println("==customer expense report==");
+        System.out.print("customer id: ");
+        String cid = scanner.nextLine();
+        System.out.print("start date: ");
+        String sdate = scanner.nextLine();
+        System.out.print("end date: ");
+        String edate = scanner.nextLine();
+        String sql = "select sum(TotalPrice) as num from TransactionRecords where CustomerID="+cid+" and Date > '"+sdate+"' and Date < '"+edate+"'";
+        try {
+            //System.out.println(sql);
+            result = statement.executeQuery(sql);
+            while (result.next()) {
+                System.out.println("\n===Total Expense: "+result.getDouble("num")+"===\n");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void storeSale(){
-
+        System.out.println("==store sale report==");
+        System.out.print("store id: ");
+        String sid = scanner.nextLine();
+        System.out.print("start date: ");
+        String sdate = scanner.nextLine();
+        System.out.print("end date: ");
+        String edate = scanner.nextLine();
+        String sql = "select sum(TotalPrice) as num from TransactionRecords where StoreID="+sid+" and Date > '"+sdate+"' and Date < '"+edate+"'";
+        try {
+            //System.out.println(sql);
+            result = statement.executeQuery(sql);
+            while (result.next()) {
+                System.out.println("\n===Total Sale: "+result.getDouble("num")+"===\n");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void productSale(){
-
+        System.out.println("==product sale num report==");
+        System.out.print("product id: ");
+        String pid = scanner.nextLine();
+        System.out.print("start date: ");
+        String sdate = scanner.nextLine();
+        System.out.print("end date: ");
+        String edate = scanner.nextLine();
+        String sql = "select sum(Count) as num from TransactionContains join TransactionRecords on TransactionContains.TransactionID = TransactionRecords.TransactionID where ProductID="+pid+" and Date > '"+sdate+"' and Date < '"+edate+"'";
+        try {
+            //System.out.println(sql);
+            result = statement.executeQuery(sql);
+            while (result.next()) {
+                System.out.println("\n===Total Sale Num: "+result.getInt("num")+"===\n");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void execute(){
+        String unuse = scanner.nextLine();
         while(true) {
             helper();
             System.out.print("enter operation code: ");
